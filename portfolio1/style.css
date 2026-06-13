@@ -60,7 +60,6 @@ body {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ✅ NEW: Navbar shrinks on scroll */
 .navbar.scrolled {
   padding: 0.6rem 5%;
   background: var(--card);
@@ -97,7 +96,6 @@ body {
   font-weight: 500;
 }
 
-/* ✅ NEW: Active nav link highlight */
 .nav-links a::after {
   content: "";
   position: absolute;
@@ -149,7 +147,6 @@ body {
   transform-origin: center;
 }
 
-/* ✅ NEW: Hamburger X animation */
 .hamburger.active span:nth-child(1) {
   transform: rotate(45deg) translate(6px, 6px);
 }
@@ -206,7 +203,7 @@ body {
   font-size: 1.5rem;
   color: var(--text-dim);
   margin-bottom: 1.5rem;
-  min-height: 2.5rem; /* ✅ Prevents layout shift */
+  min-height: 2.5rem;
 }
 
 .typed {
@@ -704,7 +701,6 @@ body {
 .contrib-card:hover {
   transform: translateX(5px);
   border-left-width: 8px;
-  background: var(--card);
   box-shadow: var(--shadow-sm);
 }
 
@@ -789,7 +785,6 @@ body {
   width: 100%;
 }
 
-/* ✅ Form button states */
 .success-icon {
   display: none;
   color: #10b981;
@@ -813,16 +808,6 @@ body {
 
 .contact-form.sending .fa-spinner {
   display: inline-block !important;
-}
-
-@keyframes bounce {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.4);
-  }
 }
 
 .social-links {
@@ -897,7 +882,6 @@ footer i {
   transform: translateY(0);
 }
 
-/* ✅ Staggered animation for grids */
 .reveal:nth-child(1) {
   transition-delay: 0.1s;
 }
@@ -922,7 +906,7 @@ footer i {
   }
 }
 
-/* ===== FORM SPINNER ===== */
+/* ===== FORM SPINNER (Single Definition) ===== */
 .fa-spinner {
   animation: spin 1s linear infinite;
 }
@@ -930,6 +914,63 @@ footer i {
 @keyframes spin {
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* ===== WEB3FORMS - FORM STATES ===== */
+.contact-form.sending .btn {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.contact-form.success {
+  animation: successGlow 1.5s ease;
+}
+
+@keyframes successGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+  50% {
+    box-shadow: 0 0 30px 10px rgba(16, 185, 129, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.contact-form.error .btn {
+  background: #ef4444 !important;
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ===== SHARED ANIMATIONS (Consolidated) ===== */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
   }
 }
 

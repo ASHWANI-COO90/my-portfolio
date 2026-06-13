@@ -1,6 +1,5 @@
 // ===== WAIT FOR DOM TO LOAD =====
 document.addEventListener("DOMContentLoaded", () => {
-
   /* ============================================
      1. TYPING ANIMATION
      ============================================ */
@@ -16,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let isDeleting = false;
   const typedEl = document.getElementById("typed");
 
-  // ✅ FIX 2: Null check
   if (typedEl) {
     function typeEffect() {
       const current = roles[roleIndex];
@@ -49,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeToggle = document.getElementById("themeToggle");
   const html = document.documentElement;
 
-  // ✅ FIX 3: Apply saved theme on page load
+  // Apply saved theme on page load
   const savedTheme = localStorage.getItem("theme") || "dark";
   html.setAttribute("data-theme", savedTheme);
 
@@ -71,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const newTheme = current === "dark" ? "light" : "dark";
 
       html.setAttribute("data-theme", newTheme);
-      localStorage.setItem("theme", newTheme);  // ✅ Save preference
+      localStorage.setItem("theme", newTheme);
       updateThemeIcon(newTheme);
     });
   }
@@ -82,26 +80,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.getElementById("hamburger");
   const navLinks = document.getElementById("navLinks");
 
-  // ✅ FIX 1: Add click event listener
   if (hamburger && navLinks) {
-    hamburger.addEventListener("click", () => {
+    // Toggle menu on hamburger click
+    hamburger.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent document click from firing
       navLinks.classList.toggle("active");
-
-      // Animate hamburger to X
       hamburger.classList.toggle("active");
     });
 
-    // ✅ FIX 4: Close menu when a link is clicked
-    document.querySelectorAll(".nav-links a").forEach(link => {
+    // Close menu when a link is clicked
+    document.querySelectorAll(".nav-links a").forEach((link) => {
       link.addEventListener("click", () => {
         navLinks.classList.remove("active");
         hamburger.classList.remove("active");
       });
     });
 
-    // ✅ Close menu when clicking outside
+    // Close menu when clicking outside
     document.addEventListener("click", (e) => {
       if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove("active");
+        hamburger.classList.remove("active");
+      }
+    });
+
+    // Close menu on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
         navLinks.classList.remove("active");
         hamburger.classList.remove("active");
       }
@@ -111,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ============================================
      4. SCROLL REVEAL ANIMATION
      ============================================ */
-  // ✅ FIX 5: Trigger .reveal elements
   const revealElements = document.querySelectorAll(".reveal");
 
   if (revealElements.length > 0) {
@@ -120,12 +124,10 @@ document.addEventListener("DOMContentLoaded", () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("active");
-            // Optional: stop observing once revealed
-            // observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.15 }  // Trigger when 15% visible
+      { threshold: 0.15 },
     );
 
     revealElements.forEach((el) => observer.observe(el));
@@ -134,51 +136,87 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ============================================
      5. SMOOTH SCROLL FOR NAV LINKS
      ============================================ */
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
       const targetId = this.getAttribute("href");
-      if (targetId === "#") return;  // Skip empty anchors
+      if (targetId === "#") return;
 
       const target = document.querySelector(targetId);
       if (target) {
         e.preventDefault();
-        // Account for fixed navbar height
-        const navbarHeight = document.querySelector(".navbar")?.offsetHeight || 0;
+        const navbarHeight =
+          document.querySelector(".navbar")?.offsetHeight || 0;
         const offsetTop = target.offsetTop - navbarHeight;
 
         window.scrollTo({
           top: offsetTop,
-          behavior: "smooth"
+          behavior: "smooth",
         });
       }
     });
   });
 
   /* ============================================
-     6. CONTACT FORM HANDLER
+     6. CONTACT FORM HANDLER (Web3Forms) ✅ FIXED
      ============================================ */
   const contactForm = document.getElementById("contactForm");
+
   if (contactForm) {
-    contactForm.addEventListener("submit", (e) => {
+    contactForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      // Simulate sending
       const submitBtn = contactForm.querySelector("button[type='submit']");
-      const originalText = submitBtn.innerHTML;
+      const originalHTML = submitBtn.innerHTML;
 
+      // Show loading state
       submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      submitBtn.disabled = true;
+      contactForm.classList.add("sending");
 
-      setTimeout(() => {
-        contactForm.classList.add("success");
-        submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
+      // Prepare form data
+      const formData = new FormData(contactForm);
 
-        // Reset after 3 seconds
+      try {
+        // Send to Web3Forms API
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          // ✅ SUCCESS
+          contactForm.classList.remove("sending");
+          contactForm.classList.add("success");
+          submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+          console.log("✅ Form submitted successfully!", result);
+
+          // Reset form after 4 seconds
+          setTimeout(() => {
+            contactForm.classList.remove("success");
+            submitBtn.innerHTML = originalHTML;
+            submitBtn.disabled = false;
+            contactForm.reset();
+          }, 4000);
+        } else {
+          // ❌ SERVER ERROR
+          throw new Error(result.message || "Form submission failed");
+        }
+      } catch (error) {
+        // ❌ NETWORK/ERROR STATE
+        console.error("❌ Form error:", error);
+        contactForm.classList.remove("sending");
+        contactForm.classList.add("error");
+        submitBtn.innerHTML =
+          '<i class="fas fa-exclamation-triangle"></i> Failed - Try Again';
+        submitBtn.disabled = false;
+
         setTimeout(() => {
-          contactForm.classList.remove("success");
-          submitBtn.innerHTML = originalText;
-          contactForm.reset();
+          contactForm.classList.remove("error");
+          submitBtn.innerHTML = originalHTML;
         }, 3000);
-      }, 1500);
+      }
     });
   }
 
@@ -193,13 +231,13 @@ document.addEventListener("DOMContentLoaded", () => {
           if (entry.isIntersecting && !entry.target.dataset.counted) {
             const counter = entry.target;
             const target = +counter.getAttribute("data-target");
-            const duration = 2000;  // 2 seconds
-            const stepTime = 30;    // Update every 30ms
+            const duration = 2000;
+            const stepTime = 30;
             const steps = duration / stepTime;
             const increment = target / steps;
             let current = 0;
 
-            counter.dataset.counted = "true";  // Prevent re-running
+            counter.dataset.counted = "true";
 
             const updateCounter = () => {
               current += increment;
@@ -214,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     counters.forEach((counter) => counterObserver.observe(counter));
@@ -265,15 +303,14 @@ document.addEventListener("DOMContentLoaded", () => {
      ============================================ */
   console.log(
     "%c👋 Hey there!",
-    "color: #6366f1; font-size: 24px; font-weight: bold;"
+    "color: #6366f1; font-size: 24px; font-weight: bold;",
   );
   console.log(
     "%cLike my portfolio? Let's connect!",
-    "color: #ec4899; font-size: 14px;"
+    "color: #ec4899; font-size: 14px;",
   );
   console.log(
     "%c📧 your.email@example.com",
-    "color: #94a3b8; font-size: 12px;"
+    "color: #94a3b8; font-size: 12px;",
   );
-
-});  // End DOMContentLoaded
+}); // End DOMContentLoaded

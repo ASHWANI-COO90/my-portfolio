@@ -6,13 +6,13 @@
     <title>Ashwani Kesharwani | Portfolio</title>
     <link rel="stylesheet" href="style.css" />
 
-    <!-- ✅ FIX 1: Correct Font Awesome CDN -->
+    <!-- Font Awesome CDN -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
 
-    <!-- ✅ FIX 3: Added Devicon for Tailwind icon -->
+    <!-- Devicon CDN for tech logos -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
@@ -69,7 +69,10 @@
       <h2 class="section-title">About Me</h2>
       <div class="about-grid">
         <div class="about-image reveal">
-          <img src="assets/profile-pic.png" alt="Ashwani Kesharwani - Developer" />
+          <img
+            src="assets/profile-pic.png"
+            alt="Ashwani Kesharwani - Developer"
+          />
           <div class="social-overlay">
             <a href="#"><i class="fab fa-github"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
@@ -112,8 +115,6 @@
             <div class="skill-icon" data-name="CSS3">
               <i class="fab fa-css3-alt"></i>
             </div>
-
-            <!-- ✅ FIX 3: Tailwind CSS using Devicon -->
             <div class="skill-icon" data-name="Tailwind CSS">
               <i class="devicon-tailwindcss-plain colored"></i>
             </div>
@@ -295,22 +296,66 @@
       </div>
     </section>
 
-    <!-- ===== CONTACT ===== -->
+    <!-- ===== CONTACT (Web3Forms Integrated) ===== -->
     <section id="contact" class="contact section">
       <h2 class="section-title">Let's Connect</h2>
-      <form class="contact-form" id="contactForm">
+
+      <form
+        class="contact-form"
+        id="contactForm"
+        action="https://api.web3forms.com/submit"
+        method="POST"
+      >
+        <!-- 🔑 STEP 1: Replace with YOUR access key from web3forms.com -->
+        <input
+          type="hidden"
+          name="access_key"
+          value="14bdf787-a307-499b-be39-be7ff4221e56"
+        />
+
+        <!-- ⚙️ Email Configuration -->
+        <input
+          type="hidden"
+          name="subject"
+          value="🚀 New Message from Portfolio!"
+        />
+        <input type="hidden" name="from_name" value="Ashwani's Portfolio" />
+
+        <!-- 🛡️ Honeypot Spam Protection (hidden from users) -->
+        <input
+          type="checkbox"
+          name="botcheck"
+          class="hidden"
+          style="display: none"
+        />
+
         <div class="form-group">
-          <input type="text" id="name" placeholder=" " required />
+          <input type="text" name="name" id="name" placeholder=" " required />
           <label for="name">Your Name</label>
         </div>
+
         <div class="form-group">
-          <input type="email" id="email" placeholder=" " required />
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder=" "
+            required
+          />
           <label for="email">Your Email</label>
         </div>
+
         <div class="form-group">
-          <textarea id="message" rows="5" placeholder=" " required></textarea>
+          <textarea
+            name="message"
+            id="message"
+            rows="5"
+            placeholder=" "
+            required
+          ></textarea>
           <label for="message">Your Message</label>
         </div>
+
         <button type="submit" class="btn btn-primary">
           <span class="btn-text">Send Message</span>
           <i class="fas fa-paper-plane"></i>
@@ -329,7 +374,6 @@
       <p>© 2026 ASHWANI. Built with ❤️ and code.</p>
     </footer>
 
-    <!-- ✅ FIX 4: Only load script.js once, at the bottom -->
     <script src="script.js"></script>
   </body>
 </html>
