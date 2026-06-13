@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ashwani Kesharwani | Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- ✅ FIX 1: Correct Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- ✅ FIX 3: Added Devicon for Tailwind icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+    />
+  </head>
+  <body>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+      <a href="#home" class="logo">Ashwani.dev</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contributions">Contributions</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+      </button>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section id="home" class="hero">
+      <canvas id="particles"></canvas>
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Hi, I'm <span class="gradient-text">Ashwani Kesharwani</span>
+        </h1>
+        <h2 class="typing-text">
+          I'm a <span class="typed" id="typed"></span
+          ><span class="cursor">|</span>
+        </h2>
+        <p class="hero-subtitle">
+          Building scalable web experiences with clean code & creative design.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View My Work</a>
+          <a href="assets/resume.pdf" download class="btn btn-secondary"
+            >Download Resume</a
+          >
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <span></span>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ME ===== -->
+    <section id="about" class="about section">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <div class="about-image reveal">
+          <img src="assets/profile-pic.png" alt="Ashwani Kesharwani - Developer" />
+          <div class="social-overlay">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div class="about-text reveal">
+          <p>
+            I'm a passionate full-stack developer who loves turning complex
+            problems into simple, beautiful, and intuitive solutions.
+          </p>
+          <div class="status-card">
+            <i class="fas fa-circle pulse"></i>
+            <span
+              >Currently diving deep into advanced backend architectures
+              🚀</span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills" class="skills section">
+      <h2 class="section-title">Tech Stack - Skills</h2>
+      <div class="skills-grid">
+        <!-- Frontend Skills -->
+        <div class="skill-card reveal">
+          <h3><i class="fas fa-palette"></i> Frontend</h3>
+          <div class="skill-icons">
+            <div class="skill-icon" data-name="React">
+              <i class="fab fa-react"></i>
+            </div>
+            <div class="skill-icon" data-name="JavaScript">
+              <i class="fab fa-js"></i>
+            </div>
+            <div class="skill-icon" data-name="HTML5">
+              <i class="fab fa-html5"></i>
+            </div>
+            <div class="skill-icon" data-name="CSS3">
+              <i class="fab fa-css3-alt"></i>
+            </div>
+
+            <!-- ✅ FIX 3: Tailwind CSS using Devicon -->
+            <div class="skill-icon" data-name="Tailwind CSS">
+              <i class="devicon-tailwindcss-plain colored"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Backend Skills -->
+        <div class="skill-card reveal">
+          <h3><i class="fas fa-server"></i> Backend & DB</h3>
+          <div class="skill-icons">
+            <div class="skill-icon" data-name="Node.js">
+              <i class="fab fa-node-js"></i>
+            </div>
+            <div class="skill-icon" data-name="PHP">
+              <i class="fab fa-php"></i>
+            </div>
+            <div class="skill-icon" data-name="MySQL">
+              <i class="fas fa-database"></i>
+            </div>
+            <div class="skill-icon" data-name="MongoDB">
+              <i class="fas fa-leaf"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="skill-card reveal">
+          <h3><i class="fas fa-tools"></i> Tools & Architecture</h3>
+          <div class="skill-icons">
+            <div class="skill-icon" data-name="Git">
+              <i class="fab fa-git-alt"></i>
+            </div>
+            <div class="skill-icon" data-name="GitHub">
+              <i class="fab fa-github"></i>
+            </div>
+            <div class="skill-icon" data-name="REST APIs">
+              <i class="fas fa-plug"></i>
+            </div>
+            <div class="skill-icon" data-name="Network">
+              <i class="fas fa-network-wired"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects" class="projects section">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card reveal">
+          <div class="project-image">
+            <img
+              src="https://picsum.photos/400/250?random=1"
+              alt="E-Commerce Platform"
+            />
+          </div>
+          <div class="project-info">
+            <h3>E-Commerce Platform</h3>
+            <p>
+              A full-stack MERN app with cart, payments, and admin dashboard.
+            </p>
+            <div class="tech-tags">
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">MongoDB</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="icon-btn"
+                ><i class="fas fa-external-link-alt"></i> Live</a
+              >
+              <a href="#" class="icon-btn"
+                ><i class="fab fa-github"></i> Code</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-image">
+            <img
+              src="https://picsum.photos/400/250?random=2"
+              alt="Task Management App"
+            />
+          </div>
+          <div class="project-info">
+            <h3>Task Management App</h3>
+            <p>
+              Real-time collaboration tool with drag-drop and notifications.
+            </p>
+            <div class="tech-tags">
+              <span class="tag">PHP</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">AJAX</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="icon-btn"
+                ><i class="fas fa-external-link-alt"></i> Live</a
+              >
+              <a href="#" class="icon-btn"
+                ><i class="fab fa-github"></i> Code</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-image">
+            <img
+              src="https://picsum.photos/400/250?random=3"
+              alt="Portfolio CMS"
+            />
+          </div>
+          <div class="project-info">
+            <h3>Portfolio CMS</h3>
+            <p>Custom CMS to manage portfolio content with authentication.</p>
+            <div class="tech-tags">
+              <span class="tag">Express</span>
+              <span class="tag">REST API</span>
+              <span class="tag">JWT</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="icon-btn"
+                ><i class="fas fa-external-link-alt"></i> Live</a
+              >
+              <a href="#" class="icon-btn"
+                ><i class="fab fa-github"></i> Code</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTRIBUTIONS ===== -->
+    <section id="contributions" class="contributions section">
+      <h2 class="section-title">Open Source & Community</h2>
+
+      <div class="contrib-stats">
+        <div class="stat-card reveal">
+          <i class="fas fa-code-branch"></i>
+          <h3 class="counter" data-target="487">0</h3>
+          <p>Total Commits</p>
+        </div>
+        <div class="stat-card reveal">
+          <i class="fas fa-code"></i>
+          <h3 class="counter" data-target="23">0</h3>
+          <p>Pull Requests</p>
+        </div>
+        <div class="stat-card reveal">
+          <i class="fas fa-trophy"></i>
+          <h3 class="counter" data-target="5">0</h3>
+          <p>Hackathons</p>
+        </div>
+      </div>
+
+      <div class="contrib-grid">
+        <div class="contrib-card reveal">
+          <h3>🌟 Featured Contribution</h3>
+          <p><strong>Project:</strong> React Router</p>
+          <p>
+            <strong>Fix:</strong> Resolved memory leak in useNavigate hook under
+            strict mode.
+          </p>
+          <a href="#" class="icon-btn"
+            >View PR <i class="fas fa-arrow-right"></i
+          ></a>
+        </div>
+        <div class="contrib-card reveal">
+          <h3>🌟 Featured Contribution</h3>
+          <p><strong>Project:</strong> Node.js Docs</p>
+          <p>
+            <strong>Feature:</strong> Added examples for the new streams API.
+          </p>
+          <a href="#" class="icon-btn"
+            >View PR <i class="fas fa-arrow-right"></i
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="contact section">
+      <h2 class="section-title">Let's Connect</h2>
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <input type="text" id="name" placeholder=" " required />
+          <label for="name">Your Name</label>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" placeholder=" " required />
+          <label for="email">Your Email</label>
+        </div>
+        <div class="form-group">
+          <textarea id="message" rows="5" placeholder=" " required></textarea>
+          <label for="message">Your Message</label>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          <span class="btn-text">Send Message</span>
+          <i class="fas fa-paper-plane"></i>
+          <i class="fas fa-check success-icon"></i>
+        </button>
+      </form>
+
+      <div class="social-links">
+        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 ASHWANI. Built with ❤️ and code.</p>
+    </footer>
+
+    <!-- ✅ FIX 4: Only load script.js once, at the bottom -->
+    <script src="script.js"></script>
+  </body>
+</html>
