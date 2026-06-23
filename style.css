@@ -21,7 +21,7 @@
   --bg-light: #ffffff;
   --text: #0f172a;
   --text-dim: #64748b;
-  --card: rgba(255, 255, 255, 0.85);
+  --card: rgba(191, 218, 231, 0.479);
   --border: rgba(99, 102, 241, 0.3);
 }
 
@@ -52,7 +52,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 5%;
+  padding: 1rem 10%;
   background: var(--card);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
